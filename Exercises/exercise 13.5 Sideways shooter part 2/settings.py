@@ -19,5 +19,6 @@ class Settings:
         self.bullets_allowed = 3
 
         # Alien settings
-        self.alien_speed = 1.0
-        
+        self.alien_speed = 0.05
+        self.alien_drop_speed = 5
+        self.alien_direction = 1

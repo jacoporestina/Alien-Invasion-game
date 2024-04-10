@@ -30,6 +30,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_bullets()
+            self._update_alien()
             self._update_screen()
 
     def _check_events(self):
@@ -108,6 +109,14 @@ class AlienInvasion:
 
         # Add alien to the group.
         self.aliens.add(alien)
+
+    def _change_alien_fleet_direction(self):
+        """Change direction of alien fleet and drop entire fleet"""
+        self.aliens.check_edges()
+
+    def _update_alien(self):
+        """Update alien movement in the game."""
+        self.aliens.update()
 
     def _update_screen(self):
         """Update imgages on the screen, and flip to the new screen"""
