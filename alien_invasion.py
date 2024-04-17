@@ -6,7 +6,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
-
+from button import Button
 
 class AlienInvasion:
     """Overall class to manage game assets and behavior."""
@@ -23,12 +23,15 @@ class AlienInvasion:
 
         # Create an instance to store game statistics.
         self.stats = GameStats(self)
-
+        
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
 
         self._create_fleet()
+
+        # Make the Play button
+        self.play_button = Button(self, "Play")
     
     def run_game(self):
         """Start the main loop for the game."""
@@ -189,7 +192,11 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
-
+        
+        # Draw the play button if the game is inactive
+        if not self.stats.game_active:
+            self.play_button.draw_button()
+            
         pygame.display.flip()
 
 if __name__ == '__main__':
