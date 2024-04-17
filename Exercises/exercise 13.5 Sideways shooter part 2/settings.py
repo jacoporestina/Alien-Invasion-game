@@ -19,6 +19,7 @@ class Settings:
         self.bullets_allowed = 3
 
         # Alien settings
-        self.alien_speed = 0.05
+        self.alien_speed = 1
         self.alien_drop_speed = 5
-        self.alien_direction = 1
+        # fleet_direction of 1 represent going up, while -1 represents going down
+        self.fleet_direction = 1
