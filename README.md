@@ -30,6 +30,7 @@ After installing Pygame, you can run the game using:
 
 ```sh
 python alien_invasion.py
+
 ## How to Play
 
 - **Start the Game:** Click the "Play" button or press `P` to start the game.
@@ -54,3 +55,4 @@ python alien_invasion.py
 - `game_stats.py`: Manages game statistics.
 - `scoreboard.py`: Manages the display of the score and high score.
 - `button.py`: Manages the play button.
+
