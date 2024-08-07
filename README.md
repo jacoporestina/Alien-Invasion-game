@@ -30,6 +30,7 @@ After installing Pygame, you can run the game using:
 
 ```sh
 python alien_invasion.py
+```
 
 ## How to Play
 
