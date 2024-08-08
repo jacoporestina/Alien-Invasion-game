@@ -74,15 +74,12 @@ class AlienInvasion:
         # Reset game statistics
         self.stats.reset_stats()
         self.stats.game_active = True
-        self.sb.prep_score()
-        self.sb.prep_level()
-        self.sb.prep_ships()
+        self.sb.prep_images
 
-        # Get rid of any remaining aliens and bullets
+        # Eliminate remaining aliens and bullets
         self.aliens.empty()
         self.bullets.empty()
-
-        # Create a new fleet and center the ship
+        # Create a new fleet and ship
         self._create_fleet()
         self.ship.center_ship()
 
@@ -138,8 +135,10 @@ class AlienInvasion:
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
             self.sb.check_high_score()
+            self.start_new_level()
         
-        # Repopulate the fleet of aliens.
+    def start_new_level(self):
+        """Repopulate the fleet of aliens and increase level."""
         if not self.aliens:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
@@ -148,7 +147,7 @@ class AlienInvasion:
 
             # Increase level.
             self.stats.level += 1
-            self.sb.prep_level()
+            self.sb.prep_level()    
     
     def _update_aliens(self):
         """Check if the fleet is at the edge, and
