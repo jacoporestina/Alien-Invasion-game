@@ -1,0 +1,8 @@
+Cosa aggiungere per migliorare il gioco:
+- musica di background, suoni per collisioni e proiettili
+- scritta game over e suono
+- ad ogni livello, incrementare velocità della musica 
+- nuovo sfondo (magari più scuro, tipo nello spazio, magari che si muove per simulare movimento battaglia spaziale)
+- cambia il movimento degli alieni: alieni che si generano da alto e scendono verso il basso
+- introdurre un boss ogni tot livelli
+
