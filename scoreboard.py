@@ -77,3 +77,12 @@ class Scoreboard:
         if self.stats.score > self.stats.high_score:
             self.stats.high_score = self.stats.score
             self.prep_high_score()
+            self.save_high_score()
+        
+    def save_high_score(self):
+        """Save the highest score in a different file."""
+        highest_score = self.stats.high_score
+        highest_score_file = "highest_score.txt"
+
+        with open(highest_score_file, 'w')as file:
+            file.write(str(highest_score))
