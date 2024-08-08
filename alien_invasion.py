@@ -1,6 +1,7 @@
 import sys
 from time import sleep
 import pygame
+from pygame import mixer
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
@@ -8,6 +9,7 @@ from alien import Alien
 from game_stats import GameStats
 from scoreboard import Scoreboard
 from button import Button
+from player import Player
 
 class AlienInvasion:
     """Overall class to manage game assets and behavior."""
@@ -15,7 +17,9 @@ class AlienInvasion:
     def __init__(self):
         """initialaze game and create gaem resources."""
         pygame.init()
+        mixer.init()
         self.settings = Settings()
+        self.player = Player()
         
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
@@ -23,7 +27,7 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
 
         # Create an instance to store game statistics, 
-        # and creat a scoreboard. 
+        # and create a scoreboard. 
         self.stats = GameStats(self)
         self.sb = Scoreboard(self)
         
@@ -40,6 +44,7 @@ class AlienInvasion:
         """Start the main loop for the game."""
         while True:
             self._check_events()
+            self.player.play_music()
 
             if self.stats.game_active:
                 self.ship.update()
@@ -48,6 +53,7 @@ class AlienInvasion:
             
             self._update_screen()
 
+    
     def _check_events(self):
         """Respond to keypresses and mouse events."""
         for event in pygame.event.get():
@@ -112,6 +118,9 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+            
+            # play firing bullet sound
+            self.player.laser()
     
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
@@ -136,6 +145,9 @@ class AlienInvasion:
             self.sb.prep_score()
             self.sb.check_high_score()
             self.start_new_level()
+            
+            # play explosion sound when alien gets hit
+            self.player.explosion()
         
     def start_new_level(self):
         """Repopulate the fleet of aliens and increase level."""
@@ -218,6 +230,9 @@ class AlienInvasion:
             # Decrement ships_left, and update scoreboard.
             self.stats.ship_left -= 1
             self.sb.prep_ships()
+            
+            # Explosion sound for the ship hit
+            self.player.explosion()
 
             # Get rid of any remainig aliens and bullets.
             self.aliens.empty()
