@@ -6,9 +6,9 @@ class Player:
 
     def __init__(self):
         """Initialize music and sounds"""
-        self.game_music = mixer.Sound("C:/Users/jacop/OneDrive/Desktop/Learning python/python crash course/alien_invasion_game/music/space-invaders-classic-arcade-game-116826.mp3")
-        self.explosion_sound = mixer.Sound("C:/Users/jacop/OneDrive/Desktop/Learning python/python crash course/alien_invasion_game/sounds/explosion-91872.mp3")
-        self.laser_sound = mixer.Sound("C:/Users/jacop/OneDrive/Desktop/Learning python/python crash course/alien_invasion_game/sounds/laser-104024.mp3")
+        self.game_music = mixer.Sound("music/space-invaders-classic-arcade-game-116826.mp3")
+        self.explosion_sound = mixer.Sound("sounds/explosion-91872.mp3")
+        self.laser_sound = mixer.Sound("sounds/laser-104024.mp3")
         #self.game_over_music = mixer.Sound()
 
     def play_music(self):
