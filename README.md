@@ -7,7 +7,7 @@ Alien Invasion is a classic arcade-style game where the player controls a ship t
 1. **Clone the Repository:**
 
     ```sh
-    git clone https://github.com/your-username/your-repository-name.git
+    git clone https://github.com/jacoporestina/Alien-Invasion-game.git
     cd your-repository-name
     ```
 

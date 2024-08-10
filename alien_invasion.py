@@ -37,14 +37,16 @@ class AlienInvasion:
 
         self._create_fleet()
 
-        # Make the Play button
+        # Make the Play button and Game Over button
         self.play_button = Button(self, "Play")
+        self.game_over_button = Button(self, "Game Over!")
+        self.game_over_timer = None # Timer to track how long the game over button is displayed.
+        self.game_over = False
     
     def run_game(self):
         """Start the main loop for the game."""
         while True:
             self._check_events()
-            self.player.play_music()
 
             if self.stats.game_active:
                 self.ship.update()
@@ -53,7 +55,6 @@ class AlienInvasion:
             
             self._update_screen()
 
-    
     def _check_events(self):
         """Respond to keypresses and mouse events."""
         for event in pygame.event.get():
@@ -85,9 +86,13 @@ class AlienInvasion:
         # Eliminate remaining aliens and bullets
         self.aliens.empty()
         self.bullets.empty()
+        
         # Create a new fleet and ship
         self._create_fleet()
         self.ship.center_ship()
+
+        # Play game music
+        self.player.play_music()
 
         # Hide the mouse cursor
         pygame.mouse.set_visible(False)
@@ -243,10 +248,22 @@ class AlienInvasion:
             self.ship.center_ship()
 
             # Pause.
-            sleep(0.5)
+            sleep(1)
         else:
-            self.stats.game_active = False
-            pygame.mouse.set_visible(True)
+            self._game_over()
+            
+    def _game_over(self):
+        """Handle stop game and game over when ships are finished."""
+        # Stop game 
+        self.stats.game_active = False
+        # Stop the music
+        pygame.mixer.music.stop()
+        # Start the timer for the game over button
+        self.game_over_timer = pygame.time.get_ticks()
+        # Game over flag to true
+        self.game_over = True
+
+        pygame.mouse.set_visible(True)
 
     def _update_screen(self):
         """Update imgages on the screen, and flip to the new screen"""
@@ -259,11 +276,25 @@ class AlienInvasion:
         # Draw the score information.
         self.sb.show_score()
         
-        # Draw the play button if the game is inactive
+        # Draw the play button and/or the game over button
         if not self.stats.game_active:
-            self.play_button.draw_button()
-            
+            self._update_buttons()        
+
         pygame.display.flip()
+
+    def _update_buttons(self):
+        """Manages the play and game over button on the screen when game finishes and starts."""
+        if self.game_over:
+            # Draw the Game Over button
+            self.game_over_button.draw_button()
+            self.player.game_over()
+
+            # Check if 2 seconds have passed
+            if pygame.time.get_ticks() - self.game_over_timer > 2000:
+                self.game_over = False # Reset flag
+
+        else:    
+            self.play_button.draw_button() 
 
 if __name__ == '__main__':
     # Make a game instance, and run the game.
