@@ -9,9 +9,9 @@ class Background:
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
 
-        self.background_image = pygame.image.load("images/space_background.jpg")
+        self.background_image = pygame.image.load("images/space_background.png")
         self.background_rect = self.background_image.get_rect()
-        self.scroll_speed = 0.5
+        self.scroll_speed = 2
         self.background_rect.y = 0
 
     def update_background(self):
