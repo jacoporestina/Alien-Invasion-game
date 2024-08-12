@@ -10,12 +10,13 @@ from game_stats import GameStats
 from scoreboard import Scoreboard
 from button import Button
 from player import Player
+from background import Background
 
 class AlienInvasion:
     """Overall class to manage game assets and behavior."""
 
     def __init__(self):
-        """initialaze game and create gaem resources."""
+        """initialaze game and create game resources."""
         pygame.init()
         mixer.init()
         self.settings = Settings()
@@ -26,8 +27,7 @@ class AlienInvasion:
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Alien Invasion")
 
-        # Create an instance to store game statistics, 
-        # and create a scoreboard. 
+        self.background = Background(self)   
         self.stats = GameStats(self)
         self.sb = Scoreboard(self)
         
@@ -263,7 +263,9 @@ class AlienInvasion:
 
     def _update_screen(self):
         """Update imgages on the screen, and flip to the new screen"""
-        self.screen.fill(self.settings.bg_color)
+        #self.screen.fill(self.settings.bg_color)
+        self.background.draw_background()
+        self.background.update_background()
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
