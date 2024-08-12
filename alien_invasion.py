@@ -20,7 +20,7 @@ class AlienInvasion:
         mixer.init()
         self.settings = Settings()
         self.player = Player()
-        
+
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
@@ -40,7 +40,6 @@ class AlienInvasion:
         # Make the Play button and Game Over button
         self.play_button = Button(self, "Play")
         self.game_over_button = Button(self, "Game Over!")
-        self.game_over_timer = None # Timer to track how long the game over button is displayed.
         self.game_over = False
     
     def run_game(self):
@@ -254,12 +253,9 @@ class AlienInvasion:
             
     def _game_over(self):
         """Handle stop game and game over when ships are finished."""
-        # Stop game 
+        # Stop game and music
         self.stats.game_active = False
-        # Stop the music
         pygame.mixer.music.stop()
-        # Start the timer for the game over button
-        self.game_over_timer = pygame.time.get_ticks()
         # Game over flag to true
         self.game_over = True
 
@@ -288,12 +284,9 @@ class AlienInvasion:
             # Draw the Game Over button
             self.game_over_button.draw_button()
             self.player.game_over()
-
-            # Check if 2 seconds have passed
-            if pygame.time.get_ticks() - self.game_over_timer > 2000:
-                self.game_over = False # Reset flag
-
-        else:    
+            self.game_over = False # Reset flag
+        else:  
+            sleep(2) # To avoid any superimposed sounds
             self.play_button.draw_button() 
 
 if __name__ == '__main__':
